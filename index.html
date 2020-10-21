@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>
+		exitgenerator
+	</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master\semantic.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+<br>
+<br>
+<h1 class="ui center aligned header">welcome to the exit generator</h1>
+
+<h2 class="ui center aligned header">you can use this program to create a password, <br> which you can't see yourself, but you can send it to friends as a backup.</h2>
+
+<h3 class="ui center aligned header">you can use it for example if you do not want to have access to an account (stop using an account)</h3>
+
+<h3 class="ui center aligned header">if your ready press the button!</h3>
+
+<h5 class="ui center aligned red header">use at your own risk!</h5>
+
+
+<div class="ui container center aligned">
+	<div class="ui clearing segement">
+		<div class="ui input">
+ 			<input name="users" id="nameInput" type="text" placeholder="name" required="required">
+		</div>
+		</a><button type="submit" class="ui button" id="button1" value="submit" onclick="wait();generatePassword();">generate!</button>
+			<h5 class="ui center aligned green header" id="clipboardText" hidden="true">password added to your clipboard</h5>
+			<br>
+			<h3 id="shareText" class="ui center aligned header">share</h3>
+			<br>
+			<div class="ui labeled input">
+  				<div class="ui label">
+    				http://
+  				</div>
+  			<input id="newWebsite" type="text" placeholder="mysite.com" disabled="true">
+			</div>
+			<br>
+			<br>
+		<a id="shareWhatsapp" title="share on Whatsapp!"><i class="fa fa-whatsapp"></i></a>
+	</div>
+</div>
+
+<script>
+	
+</script>
+
+<script>
+
+function generatePassword() {
+	if (document.getElementById("nameInput").value.length < 3) {
+		alert ("EII");
+		return false;
+	} else {
+  	var length = 15,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      name = "";
+      retVal = "";
+
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+
+    var dummy = document.createElement("textarea");
+	document.body.appendChild(dummy);
+	dummy.value = retVal;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    document.getElementById("clipboardText").hidden = false;
+
+    name = document.getElementById("nameInput").value;
+
+    var userName = document.getElementById("nameInput").value;
+
+    httpRequest(userName);
+
+    var link = "exitgenerator.com/files/" + userName + ".html";
+
+    document.getElementById("newWebsite").disabled = false;
+    document.getElementById("newWebsite").value = link;
+
+    var link1 = "whatsapp://send?text=" + "a friend just gave you his password! " + link;
+    document.getElementById("shareWhatsapp").setAttribute("href",link1);
+    document.getElementById("button1").disabled = true;
+	}
+}
+
+</script>
+
+<script>
+function httpRequest(name){
+    var x = new XMLHttpRequest();
+    x.open("GET","createFile.php?data=" + name + "," + retVal,true);
+    x.send();
+    return false;
+}
+</script>
+
+<script>
+	window.onload = function checkMobile() {
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ 		document.getElementById("shareWhatsapp").style.visibility = "visible";
+		} else {
+		document.getElementById("shareWhatsapp").style.visibility = "hidden";
+		};
+}
+</script>
+
+<script>
+
+	function wait() {
+		document.getElementById("button1").setAttribute("class", "ui loading button");
+
+		setTimeout(function(){
+    		document.getElementById("button1").setAttribute("class", "ui button");
+    		document.getElementById("button1").textContent = "done";
+		}, 3000);
+	}
+
+</script>
+<iframe style="display:none;" name="target"></iframe>
+</body>
+</html>
